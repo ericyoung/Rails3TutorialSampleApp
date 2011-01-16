@@ -3,7 +3,7 @@
 }
 
 body {
-	background: #cff;
+	background: #f5f5f5;
 }
 
 header {
@@ -11,12 +11,15 @@ header {
 }
 
 header img {
-	padding: 1em;
+	padding: .5em;
 	background: #fff;
+	font-size:1.5em;
+	font-weight:bold;
+	text-shadow: 1px 1px 1px #bbb;
 }
 
 section  {
-	margin-top: 1em;
+	margin-top: 1.5em;
 	font-size: 120%;
 	padding: 20px;
 	background: #fff;
@@ -99,6 +102,12 @@ a.signup_button {
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 	border-radius: 10px;
+}
+
+.shadowed-box {
+	border: 1px solid #d5d5d5;
+	-moz-box-shadow:0 1px 10px rgba(0, 0, 0, 0.15);
+	-webkit-box-shadow:0 1px 10px rgba(0, 0, 0, 0.15);
 }
 
 
