@@ -1,0 +1,10 @@
+<li>
+  <%= gravatar_for user, :size => 30 %>
+  <%= link_to user.name, user %>
+  <% if current_user.admin? %>
+    | <%= link_to "delete", user, :method => :delete, :confirm => "Are you sure?", :title => "Delete #{user.name}" %>
+  <% end %>
+</li>
+<!-- You don't need to iterate through @users since you've kept the correct 
+naming convention for the partial, and the object being passed is a User array 
+thus, the following will be rendered for every object (User) in the array -->

@@ -85,7 +85,8 @@ describe User do
   describe "password encryption" do
   
     before(:each) do
-      @user = User.create! @attr
+      @email = Factory.next(:email) # had to add this, as original code in book wasn't working
+      @user = User.create! @attr.merge({:email => @email})
     end
     
     it "should have an encrypted password attribute" do
@@ -110,7 +111,7 @@ describe User do
     
     describe "authenticate method" do
       it "should return nil on email/password mismatch" do
-        wrong_password_user = User.authenticate(@attr[:email], "wrongpass")
+        wrong_password_user = User.authenticate(@email, "wrongpass")
         wrong_password_user.should be_nil
       end
       
@@ -120,8 +121,24 @@ describe User do
       end
       
       it "should return the user on email/password match" do
-        matching_user = User.authenticate(@attr[:email], @attr[:password])
+        matching_user = User.authenticate(@email, @attr[:password])
         matching_user.should == @user        
+      end
+    end
+    
+    describe "admin attribute" do
+      before(:each) do
+        @user = User.create! @attr
+      end
+      it "should respond to admin" do
+        @user.should respond_to(:admin)
+      end
+      it "should not be an admin by default" do
+        @user.should_not be_admin
+      end
+      it "should be convertible to an admin" do
+        @user.toggle!(:admin) # toggle! flips a boolean attribute
+        @user.should be_admin
       end
     end
   
