@@ -213,11 +213,15 @@ describe UsersController do
         delete :destroy, :id => @user
         response.should redirect_to(root_path)
       end
+      it "should not show delete links for non-admins" do
+        get :index
+        response.should_not have_selector("a", :content => "delete")
+      end
     end
     describe "as an admin user" do
       before(:each) do
-        admin = Factory(:user, :email => "admin@example.com", :admin => true)
-        test_sign_in(admin)
+        @admin = Factory(:user, :email => "admin@example.com", :admin => true)
+        test_sign_in(@admin)
       end
       it "should destroy the user" do
         lambda do
@@ -227,6 +231,16 @@ describe UsersController do
       it "should redirect to the users page" do
         delete :destroy, :id => @user
         response.should redirect_to(users_path)
+      end
+      it "should show delete links for non-admins" do
+        get :index
+        response.should have_selector("a", :content => "delete")
+      end
+      it "should not be able to destroy themselves" do
+        delete :destroy, :id => @admin
+        lambda do
+          delete :destroy, :id => @admin
+        end.should_not change(User, :count).by(-1)
       end
     end
   end
