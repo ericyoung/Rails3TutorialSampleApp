@@ -36,6 +36,10 @@ group :development do
   gem 'rspec-rails', '2.4.1'
   gem 'annotate-models', '1.0.4'
   gem 'faker', '0.3.1'
+  gem 'autotest', '4.3.2'
+  gem 'autotest-rails-pure', '4.1.0'
+  gem 'autotest-fsevent', '0.2.2'
+  gem 'autotest-growl', '0.2.4'
 end
 
 group :test do
